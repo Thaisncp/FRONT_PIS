@@ -3,6 +3,7 @@ import Footer from './Footer';
 import '../components/css/InicioSesion.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from './Navbar';
 const InicioSesion = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
@@ -18,6 +19,7 @@ const InicioSesion = () => {
 
   return (
     <>
+     <Navbar/>
       <div className="login-container container mt-5">
         <h1 className="text-center mb-4">Inicia Sesión</h1>
         <form onSubmit={handleLogin}>

@@ -11,6 +11,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from './Navbar';
 const MainContainer1 = ({ uvData}) => (
     <div className="main-container" style={{ backgroundColor:  'white'}}>
       {/* Contenido principal después de iniciar sesión */}
@@ -99,6 +100,7 @@ const Radiacion = () => {
   });
   return (
     <>
+    <Navbar/>
           <MainContainer1 uvData={uvData} handleLogout={handleLogout} />
           <MainContainer2 uvData={uvData} />
           <MainContainer3 uvData={uvData} />

@@ -134,7 +134,15 @@ display: flex;
   height: 500px;
   margin: 0 auto;
 }
-
+.registro-container.container.mt-5 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 75%;
+  margin: 0 auto;
+  padding: 15px;
+}
 .login-container.container.mt-5 .btn-primary {
   margin-top: 20px;
 }

@@ -1,34 +1,53 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 import Footer from './Footer';
 import '../components/css/InicioSesion.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from './Navbar';
+import { enviar } from '../hooks/Conexion';
+import mensajes from '../utilidades/Mensajes';
 
 const Registro = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navegation = useNavigate();
   const [nombres, setNombres] = useState('');
   const [apellidos, setApellidos] = useState('');
-  const [fechaNacimiento, setFechaNacimiento] = useState('');
+  const [fecha_nacimiento, setFecha_nacimiento] = useState('');
   const [direccion, setDireccion] = useState('');
   const [ocupacion, setOcupacion] = useState('');
-  const [institucion, setInstitucion] = useState('');
+  const [organizacion, setOrganizacion] = useState('');
   const [correo, setCorreo] = useState('');
   const [clave, setClave] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = (e) => {
+  const sendData = (e) => {
     e.preventDefault();
+    var datos = {
+      "nombres": e.target.elements.nombres.value,
+      "apellidos": e.target.elements.apellidos.value,
+      "fecha_nacimiento": e.target.elements.fecha_nacimiento.value,
+      "direccion": e.target.elements.direccion.value,
+      "ocupacion": e.target.elements.ocupacion.value,
+      "organizacion": e.target.elements.organizacion.value,
+      "correo": e.target.elements.correo.value,
+      "clave": e.target.elements.clave.value
+    };
+    enviar("/persona/save", datos).then((info) => {
+      console.log(info.code);
+      if (info.code === 200) {
+        mensajes("Te has registrado en el sistema!", "success","Tu cuenta se encuentra en espera");
+        navegation('/inicio-sesion');
+      } else {
+        setError(info.msg); // Cambié setError(info.msg) para mostrar el mensaje de error
+        mensajes("Error de registro", "error", error);
+        
+      }
+    }
+    );
    };
 
-  const handleLogout = () => {
-    // Implementa la lógica de cierre de sesión si es necesario.
-  };
-
   return (<div>
-     <Navbar/>
     <div className="mb-4 registro-container container mt-5">
       <h1 className="text-center mb-4">Registro</h1>
-      <form className='row g-3' onSubmit={handleLogin}>
+      <form className='row g-3' onSubmit={sendData}>
         <div className="col-md-6">
           <label htmlFor="nombres" className="form-label">
             Nombres:
@@ -54,15 +73,15 @@ const Registro = () => {
           />
         </div>
         <div className="col-md-6">
-          <label htmlFor="fechaNacimiento" className="form-label">
+          <label htmlFor="fecha_nacimiento" className="form-label">
             Fecha de Nacimiento:
           </label>
           <input
             type="date"
-            id="fechaNacimiento"
+            id="fecha_nacimiento"
             className="form-control"
-            value={fechaNacimiento}
-            onChange={(e) => setFechaNacimiento(e.target.value)}
+            value={fecha_nacimiento}
+            onChange={(e) => setFecha_nacimiento(e.target.value)}
           />
         </div>
         <div className="col-md-6">
@@ -90,15 +109,15 @@ const Registro = () => {
           />
         </div>
         <div className="col-md-6">
-          <label htmlFor="institucion" className="form-label">
+          <label htmlFor="organizacion" className="form-label">
             Institución:
           </label>
           <input
             type="text"
-            id="institucion"
+            id="organizacion"
             className="form-control"
-            value={institucion}
-            onChange={(e) => setInstitucion(e.target.value)}
+            value={organizacion}
+            onChange={(e) => setOrganizacion(e.target.value)}
           />
         </div>
         <div className="col-md-6">

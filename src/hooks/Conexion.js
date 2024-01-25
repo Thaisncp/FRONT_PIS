@@ -1,4 +1,4 @@
-let URL = "http://localhost:3000/api";
+let URL = "http://localhost:3006/api";
 
 export function url_api() {
     return URL;
@@ -19,7 +19,7 @@ export const InicioSesion = async (data) => {
 
 export const obtener = async (recurso, key = '') => {
     let cabeceras = []
-    if (key != '') {
+    if (key !== '') {
         cabeceras = {
             "Accept": 'aplication/json',
             "Content-Type": 'application/json',
@@ -41,7 +41,7 @@ export const obtener = async (recurso, key = '') => {
 
 export const enviar = async (recurso, data, key = '') => {
     let headers = []
-    if (key != '') {
+    if (key !== '') {
         headers = {
             "Accept": 'aplication/json',
             "Content-Type": 'application/json',
@@ -50,6 +50,7 @@ export const enviar = async (recurso, data, key = '') => {
     } else {
         headers = {
             "Accept": "application/json",
+            "Content-Type": 'application/json',
         };
     }
     const response = await fetch(URL + recurso, {

@@ -81,14 +81,6 @@ const MainContainer3 = ({ uvData }) => {
 };
 
 const Radiacion = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-  };
 
   const handleLogout = () => {
   };

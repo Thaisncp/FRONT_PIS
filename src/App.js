@@ -14,10 +14,10 @@ function App() {
         <Routes>
           <Route path='/' element={<Radiacion/>} />
           <Route path='/inicio-sesion' element={<InicioSesion />} />
-          <Route path='/registro-usuarios' element={<Registro/>}/>
+          <Route path='/registro' element={<Registro/>}/>
           <Route path='/comentarios' element={<Comentario/>}/>
           <Route path='/api' element={<Api/>}/>
-          <Route path='/registros-usuarios' element={<RegistrosUsuario/>}/>
+          <Route path='/validacion-usuarios' element={<RegistrosUsuario/>}/>
         </Routes>
       </Router>
     </div>

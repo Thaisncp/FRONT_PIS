@@ -25,7 +25,7 @@ const InicioSesion = () => {
       if (info.info.code === 200) {
         saveToken(info.info.token);
         mensajes("Has ingresado al sistema!", "Bienvenido usuario");
-        navegation('/inicio');
+        navegation('/api');
       } else {
         setError(info.info.msg); // Cambié setError(info.msg) para mostrar el mensaje de error
         mensajes("Error en inicio de sesion", "error", info.info.msg);

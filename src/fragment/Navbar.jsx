@@ -26,10 +26,10 @@ const Navbar = () => {
             <a class="nav-link active" aria-current="page" href="/inicio-sesion">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/registro-usuarios">Registro</a>
+            <a class="nav-link active" aria-current="page" href="/registro">Registro</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/comentarios">Registros del sistema</a>
+            <a class="nav-link active" aria-current="page" href="/validacion-usuarios">Validacion usuarios</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/api">Api</a>

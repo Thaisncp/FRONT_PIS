@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './UVLegend.css';
+import '../components/css/UVLegend.css';
 
 const UVLegend = () => {
   const uvLevels = [

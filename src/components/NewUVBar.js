@@ -1,6 +1,6 @@
 // NewUVBar.js
 import React from 'react';
-import './NewUVBar.css';
+import '../components/css/NewUVBar.css';
 
 const NewUVBar = () => {
   // Definir los colores correspondientes a cada nivel

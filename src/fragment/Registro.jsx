@@ -5,6 +5,7 @@ import '../components/css/InicioSesion.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { enviar } from '../hooks/Conexion';
 import mensajes from '../utilidades/Mensajes';
+import Navbar from './Navbar';
 
 const Registro = () => {
   const navegation = useNavigate();
@@ -45,6 +46,7 @@ const Registro = () => {
    };
 
   return (<div>
+    <Navbar/>
     <div className="mb-4 registro-container container mt-5">
       <h1 className="text-center mb-4">Registro</h1>
       <form className='row g-3' onSubmit={sendData}>

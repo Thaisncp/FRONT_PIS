@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import InicioSesion from './fragment/InicioSesion';
 import Registro from './fragment/Registro';

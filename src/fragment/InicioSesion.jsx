@@ -7,6 +7,7 @@ import mensajes from '../utilidades/Mensajes'
 import { saveToken} from '../utilidades/SessionUtil';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../components/css/InicioSesion.css';
+import Navbar from './Navbar';
 
 const InicioSesion = () => {
   const navegation = useNavigate();
@@ -34,6 +35,7 @@ const InicioSesion = () => {
 
   return (
     <>
+    <Navbar/>
       <div className="login-container container mt-5">
         <h1 className="text-center mb-4">Inicia Sesión</h1>
         <form onSubmit={handleSubmit(onSubmit)}>

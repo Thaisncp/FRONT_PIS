@@ -9,8 +9,8 @@ import UVLegend from '../components/UVLegend';
 import NewUVBar from '../components/NewUVBar';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../components/css/UVMap.css'
 import Navbar from './Navbar';
 const MainContainer1 = ({ uvData}) => (
     <div className="main-container" style={{ backgroundColor:  'white'}}>

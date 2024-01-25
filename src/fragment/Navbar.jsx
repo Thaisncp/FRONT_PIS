@@ -28,6 +28,15 @@ const Navbar = () => {
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/registro-usuarios">Registro</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/comentarios">Registros del sistema</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/api">Api</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/comentarios">Comentario</a>
+          </li>
         </ul>
         <span class="navbar-text">
           <a className="nav-link" href="/inicio-sesion" onClick={handleCerrarSesion}>Cerrar sesion</a>

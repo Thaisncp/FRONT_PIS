@@ -25,6 +25,7 @@ const InicioSesion = () => {
       if (info.info.code === 200) {
         saveToken(info.info.token);
         save('rol', info.info.rol);
+        save('external', info.info.external);
         mensajes("Has ingresado al sistema!", "Bienvenido usuario");
         navegation('/api');
       } else {

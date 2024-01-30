@@ -11,7 +11,6 @@ const Navbar = () => {
     borrarSesion();
     navigate('/inicio-sesion');
   };
-  console.log(rol);
 
   const sesionIniciada = rol !== null; // Verifica si la sesión está iniciada
 

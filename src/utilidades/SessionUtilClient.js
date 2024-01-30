@@ -18,6 +18,13 @@ export const getRol = () => {
     return null; // Otra opción es devolver un valor predeterminado
   }
 
+  export const getExternal = () => {
+    if (typeof window !== 'undefined') {
+      return window.sessionStorage.getItem("external");
+    }
+    return null; // Otra opción es devolver un valor predeterminado
+  }
+
 export const borrarSesion = () => {
     window.sessionStorage.clear();
 }

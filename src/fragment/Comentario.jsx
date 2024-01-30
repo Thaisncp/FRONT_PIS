@@ -28,7 +28,7 @@ const Comentario = () => {
                     </div>
                         <p>Ingresa tu comentario:</p>
                         <form action="#" className="bg-light">
-                            <div class="input-group ">
+                            <div className="input-group ">
                                 <input
                                     type="text"
                                     aria-describedby="button-addon2"

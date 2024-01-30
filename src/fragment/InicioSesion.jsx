@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { InicioSesion as iniciarSesionAPI } from '../hooks/Conexion'; // Ajusta las importaciones según tu estructura
 import mensajes from '../utilidades/Mensajes'
-import { saveToken} from '../utilidades/SessionUtil';
+import { saveToken, save} from '../utilidades/SessionUtil';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../components/css/InicioSesion.css';
 import Navbar from './Navbar';
@@ -24,6 +24,7 @@ const InicioSesion = () => {
       console.log('xddd', info.info.code)
       if (info.info.code === 200) {
         saveToken(info.info.token);
+        save('rol', info.info.rol);
         mensajes("Has ingresado al sistema!", "Bienvenido usuario");
         navegation('/api');
       } else {

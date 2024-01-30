@@ -1,51 +1,81 @@
 import React from 'react';
 import { borrarSesion } from '../utilidades/SessionUtil';
+import { getRol } from '../utilidades/SessionUtilClient';
 import { useNavigate } from 'react-router';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const rol = getRol();
 
   const handleCerrarSesion = () => {
     borrarSesion();
     navigate('/inicio-sesion');
   };
+  console.log(rol);
+
+  const sesionIniciada = rol !== null; // Verifica si la sesión está iniciada
 
   return (
-  <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">Semaforo</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/inicio-sesion">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/registro">Registro</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/validacion-usuarios">Validacion usuarios</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/api">Api</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/comentarios">Comentario</a>
-          </li>
-        </ul>
-        <span class="navbar-text">
-          <a className="nav-link" href="/inicio-sesion" onClick={handleCerrarSesion}>Cerrar sesion</a>
-        </span>
+    <nav className="navbar navbar-expand-lg  navbar-dark bg-dark">
+      <div className="container-fluid">
+        <a className="navbar-brand" href="/">SEMAFORO UV</a>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarText">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            {rol === 'ADMINISTRADOR' && (
+              <>
+                <li className="nav-item">
+                  <a className="nav-link active" aria-current="page" href="/">Inicio</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link active" aria-current="page" href="/validacion-usuarios">Validacion usuarios</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link active" aria-current="page" href="/api">Api</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link active" aria-current="page" href="/comentarios">Comentario</a>
+                </li>
+              </>
+            )}
+            {rol === 'USUARIO' && (
+              <>
+              <li className="nav-item">
+                  <a className="nav-link active" aria-current="page" href="/">Inicio</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link active" aria-current="page" href="/api">Api</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link active" aria-current="page" href="/comentarios">Comentario</a>
+                </li>
+              </>
+            )}
+            {!sesionIniciada && (
+              <>
+              <li className="nav-item">
+                  <a className="nav-link active" aria-current="page" href="/">Inicio</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link active" aria-current="page" href="/inicio-sesion">Login</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link active" aria-current="page" href="/registro">Registro</a>
+                </li>
+              </>
+            )}
+          </ul>
+          {sesionIniciada && (
+            <span className="navbar-text">
+              <a className="nav-link" href="/inicio-sesion" onClick={handleCerrarSesion}>Cerrar sesión</a>
+            </span>
+          )}
+        </div>
       </div>
-    </div>
-  </nav>
-
-);
-  };
+    </nav>
+  );
+};
 
 export default Navbar;

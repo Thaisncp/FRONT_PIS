@@ -1,13 +1,20 @@
-export const saveToken = (token) => {
-    localStorage.setItem("token", token);
-}
- 
-export const getToken = () => {
-    return localStorage.getItem('token');
+export const save = (key, datos) => {
+    sessionStorage.setItem(key, datos);
 }
 
-export const borrarSesion=()=>{
-    localStorage.clear();
+/**export const get = (key) => {
+    sessionStorage.setItem(key, data);
+}*/
+
+export const saveToken = (key) => {
+    return sessionStorage.setItem("token",key);
+}
+export const getToken = () => {
+    return sessionStorage.getItem("token");
+}
+
+export const borrarSesion = () => {
+    sessionStorage.clear();
 }
 
 export const estaSesion =()=>{

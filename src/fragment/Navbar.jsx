@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { borrarSesion } from '../utilidades/SessionUtil';
 import { getRol } from '../utilidades/SessionUtilClient';
 import { useNavigate } from 'react-router';
+import { Modal, Button } from 'react-bootstrap';
+import Comentario from './Comentario';
+import '../components/css/Comentario.css';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const rol = getRol();
+
+  const [showComentariosModal, setShowComentariosModal] = useState(false);
 
   const handleCerrarSesion = () => {
     borrarSesion();
@@ -14,8 +19,16 @@ const Navbar = () => {
 
   const sesionIniciada = rol !== null; // Verifica si la sesión está iniciada
 
+  const handleAbrirComentariosModal = () => {
+    setShowComentariosModal(true);
+  };
+
+  const handleCerrarComentariosModal = () => {
+    setShowComentariosModal(false);
+  };
+
   return (
-    <nav className="navbar navbar-expand-lg  navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <a className="navbar-brand" href="/">SEMAFORO UV</a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,26 +48,26 @@ const Navbar = () => {
                   <a className="nav-link active" aria-current="page" href="/api">Api</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="/comentarios">Comentario</a>
+                  <a className="nav-link active" aria-current="page" onClick={handleAbrirComentariosModal}>Comentario</a>
                 </li>
               </>
             )}
             {rol === 'USUARIO' && (
               <>
-              <li className="nav-item">
+                <li className="nav-item">
                   <a className="nav-link active" aria-current="page" href="/">Inicio</a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link active" aria-current="page" href="/api">Api</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="/comentarios">Comentario</a>
+                <a className="nav-link active" aria-current="page" onClick={handleAbrirComentariosModal}>Comentario</a>
                 </li>
               </>
             )}
             {!sesionIniciada && (
               <>
-              <li className="nav-item">
+                <li className="nav-item">
                   <a className="nav-link active" aria-current="page" href="/">Inicio</a>
                 </li>
                 <li className="nav-item">
@@ -73,6 +86,21 @@ const Navbar = () => {
           )}
         </div>
       </div>
+      <Modal show={showComentariosModal} 
+      onHide={handleCerrarComentariosModal}
+      dialogClassName="custom-modal-dialog">
+        <Modal.Header closeButton>
+          <Modal.Title>Comentarios</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Comentario></Comentario>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCerrarComentariosModal}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </nav>
   );
 };

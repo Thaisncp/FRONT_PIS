@@ -26,7 +26,7 @@ const InicioSesion = () => {
         saveToken(info.info.token);
         save('rol', info.info.rol);
         save('external', info.info.external);
-        mensajes("Has ingresado al sistema!", "Bienvenido usuario");
+        mensajes("Has ingresado al sistema!", "success", info.info.msg);
         navegation('/api');
       } else {
         setError(info.info.msg); // Cambié setError(info.msg) para mostrar el mensaje de error

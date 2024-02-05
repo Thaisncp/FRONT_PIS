@@ -24,7 +24,7 @@ body {
   
   .messages-box,
   .chat-box {
-    height: 700px;
+    height: 550px;
     overflow-y: scroll;
   }
   
@@ -46,7 +46,6 @@ body {
   }
 
   .custom-modal-dialog {
-    max-width: 600px; /* Establece el ancho fijo */
-    margin: 0 auto; /* Centra horizontalmente */
+    max-width: 600px;
   }
   

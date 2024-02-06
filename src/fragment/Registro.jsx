@@ -149,7 +149,7 @@ const Registro = () => {
         
         <div className="d-flex justify-content-center">
           <button type="submit" className="btn btn-primary">
-            Iniciar Sesión
+            REGISTRARSE
           </button>
         </div>
         {error && <p className="text-danger mt-2">{error}</p>}

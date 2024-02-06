@@ -48,7 +48,7 @@ const Navbar = () => {
                   <a className="nav-link active" aria-current="page" href="/api">Api</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" onClick={handleAbrirComentariosModal}>Comentario</a>
+                  <a className="nav-link active" aria-current="page" href="/usuarios-aceptados">Usuarios Aceptados</a>
                 </li>
               </>
             )}

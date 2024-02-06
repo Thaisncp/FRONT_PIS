@@ -6,6 +6,7 @@ import Radiacion from './fragment/Radiacion';
 import Comentario from './fragment/Comentario';
 import Api from './fragment/Api';
 import RegistrosUsuario from './fragment/RegistrosUsuario';
+import Aceptados from './fragment/Aceptados';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/comentarios' element={<Comentario/>}/>
           <Route path='/api' element={<Api/>}/>
           <Route path='/validacion-usuarios' element={<RegistrosUsuario/>}/>
+          <Route path='/usuarios-aceptados' element={<Aceptados/>}/>
         </Routes>
       </Router>
     </div>

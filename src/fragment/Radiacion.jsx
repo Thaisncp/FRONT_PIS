@@ -11,8 +11,11 @@ import 'leaflet/dist/leaflet.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../components/css/UVMap.css'
 import Navbar from './Navbar';
+
+//PRESENTA LA RADIACION Y EL MAPA
 const MainContainer1 = ({ uvData }) => (
   <div className="main-container" style={{ backgroundColor: 'white' }}>
+    
     <h1 className="text-center mb-4">Sistema UV</h1>
     <div className="row">
       <div className="col-md-6">
@@ -29,6 +32,7 @@ const MainContainer1 = ({ uvData }) => (
   </div>
 );
 
+//RECOMEDACIONES SEGUN LA RADIACION
 const MainContainer2 = ({ uvData }) => (
   <div className="main-container2 side-container" style={{ backgroundColor: 'white' }}>
     {/* Contenido específico para MainContainer2 */}
@@ -43,6 +47,7 @@ const MainContainer2 = ({ uvData }) => (
   </div>
 );
 
+//HISTORIAL
 const MainContainer3 = ({ uvData }) => {
   const [uvHistory, setUVHistory] = useState([]);
 
@@ -84,7 +89,7 @@ const Radiacion = () => {
 
   const handleLogout = () => {
   };
-  const [uvData, setUVData] = useState({
+  const [uvData, setUvData] = useState({
     intensity: 3,
     location: 'Loja, Ecuador',
   });

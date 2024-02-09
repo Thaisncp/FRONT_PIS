@@ -28,6 +28,7 @@ const Comentario = () => {
     }
   };
 
+  //ASIGNA NIVEL SE SATISFACCION SEGUN EL EMOJI SELECCIONADO
   function getNombreEmoji(emoji) {
     switch (emoji) {
       case '😁':
@@ -49,6 +50,8 @@ const Comentario = () => {
     obtenerComentarios();
   }, []);
 
+
+  //ENVIAR DATOS AL BACKEND
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!emojiSeleccionado) {

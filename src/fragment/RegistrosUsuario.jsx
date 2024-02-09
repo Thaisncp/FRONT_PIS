@@ -19,6 +19,7 @@ function RegistrosUsuario() {
     obtenerUsuarios();
   }, []);
 
+  //METODO DE CAMBIO DE ESTADO
   const handleCambiarEstado = async (externalId, nuevoEstado) => {
     try {
       const data = {
@@ -50,7 +51,7 @@ function RegistrosUsuario() {
       <Navbar />
       <div className="row">
         <figure className="text-center">
-          <h1 style={{ color: 'white' }}>LISTA DE USUARIOS</h1>
+          <h1 style={{ color: 'white' }}>LISTA DE USUARIOS EN ESPERA</h1>
         </figure>
         <div className="container-fluid">
           <table className="table table-hover">

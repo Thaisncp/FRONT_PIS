@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AceEditor from 'react-ace';
-import 'ace-builds/src-noconflict/theme-cobalt'; // Importar el tema cobalt desde ace-builds
+import 'ace-builds/src-noconflict/theme-cobalt';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/ext-language_tools'
 import Navbar from './Navbar';
@@ -29,7 +29,7 @@ function Api() {
             try {
                 const response = await fetch(url);
                 if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                    throw new Error(`Error para ${key}: HTTP error! Status: ${response.status}`);
                 }
                 const data = await response.json();
                 setOutputs(prevState => ({
@@ -37,10 +37,10 @@ function Api() {
                     [key]: JSON.stringify(data, null, 2)
                 }));
             } catch (error) {
-                console.error('Error fetching API:', error);
+                console.error(`Error para ${key}: ${error.message}`);
                 setOutputs(prevState => ({
                     ...prevState,
-                    [key]: `Error fetching API: ${error.message}`
+                    [key]: `Error para ${key}: ${error.message}`
                 }));
             }
         };

@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 
 function Aceptados() {
   const [usuarios, setUsuarios] = useState([]);
-
+  //LISTA DE USUARIOS ACEPTADOS
   useEffect(() => {
     const obtenerUsuarios = async () => {
       try {
@@ -23,7 +23,7 @@ function Aceptados() {
       <Navbar />
       <div className="row">
         <figure className="text-center">
-          <h1 style={{ color: 'white' }}>LISTA DE USUARIOS</h1>
+          <h1 style={{ color: 'white' }}>LISTA DE USUARIOS ACEPTADOS</h1>
         </figure>
         <div className="container-fluid">
           <table className="table table-hover">

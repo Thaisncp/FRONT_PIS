@@ -7,16 +7,18 @@ import Navbar from './Navbar';
 
 function Api() {
     const URL_BACKEND_API = "https://computacion.unl.edu.ec/uv/api/";
-    const lista_peticiones_get = {
-        peticion1: { metodo: 'LISTA DISPOSITIVOS', peticion: URL_BACKEND_API + 'listar' },
-        peticion2: { metodo: 'LISTA DISPOSITIVOS ACTIVOS', peticion: URL_BACKEND_API + 'activos' },
-        peticion3: { metodo: 'MEDICIÓN PROMEDIO', peticion: URL_BACKEND_API + 'medicionPromedio' },
-        peticion4: { metodo: 'MEDICIÓN DISPOSITIVOS', peticion: URL_BACKEND_API + 'medicionDispositivos' },
+    //SOLICITUDES GET
+    const solicitudes_get = {
+        primero: { funcion: 'Lista de sensores', direccion: URL_BACKEND_API + 'listar' },
+        segundo: { funcion: 'Lista de sensores activos', direccion: URL_BACKEND_API + 'activos' },
+        tercero: { funcion: 'Radiacion promedio', direccion: URL_BACKEND_API + 'medicionPromedio' },
+        cuarto: { funcion: 'Radiacion por dispositivo', direccion: URL_BACKEND_API + 'medicionDispositivos' },
     };
-    const lista_peticiones_post = {
-        peticion1: { metodo: 'PROMEDIO POR FECHAS', peticion: URL_BACKEND_API + 'medicionFechas' },
-        peticion2: { metodo: 'PROMEDIO POR SEMANAS', peticion: URL_BACKEND_API + 'medicionSemana' },
-        peticion3: { metodo: 'PROMEDIO POR DIA', peticion: URL_BACKEND_API + 'medicionDia' },
+    //SOLICITUDES POST
+    const solicitudes_post = {
+        primero: { funcion: 'Promedio de radiacion por fechas', direccion: URL_BACKEND_API + 'medicionFechas' },
+        segundo: { funcion: 'Promedio de radiacion por semana', direccion: URL_BACKEND_API + 'medicionSemana' },
+        tercero: { funcion: 'Promedio de radiacion por dia', direccion: URL_BACKEND_API + 'medicionDia' },
     };
 
     // Estado para almacenar la salida de cada petición
@@ -42,22 +44,20 @@ function Api() {
                 }));
             }
         };
-        Object.entries(lista_peticiones_get).forEach(([key, item]) => fetchData(key, item.peticion));
-        Object.entries(lista_peticiones_post).forEach(([key, item]) => fetchData(key, item.peticion));
+        Object.entries(solicitudes_get).forEach(([key, item]) => fetchData(key, item.direccion));
+        Object.entries(solicitudes_post).forEach(([key, item]) => fetchData(key, item.direccion));
     }, []); // El array vacío como segundo argumento asegura que el efecto se ejecute solo una vez al cargar la página
-
-    const renderPeticiones = (lista) => {
+    //METODO PARA MAPEAR LAS SOLICITUDES
+    const cargarSolicitudes = (lista) => {
         return Object.keys(lista).map((key) => (
             <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '20px' }} className="col-xs-12 col-sm-12 col-md-6 col-lg-6" key={key}>
                 <div style={{ marginBottom: '10px', flex: 1 }}>
                 <div className="d-flex justify-content-between">
-                <h6 style={{ color: 'black', textAlign: 'left' }}>{lista[key].metodo}</h6>
+                <h3 style={{ color: 'black', textAlign: 'left' }}>{lista[key].funcion}</h3>
             </div>
             <div className="alert alert-info" role="alert">
-            <h4 style={{ textAlign: 'left' }}>{lista[key].peticion}</h4>
+            <h5 style={{ textAlign: 'left' }}>{lista[key].direccion}</h5>
             </div>
-                   
-                  
                 </div>
                 <div> {/* Agregamos margen izquierdo y derecho de 10px */}
                 <AceEditor
@@ -66,7 +66,7 @@ function Api() {
                         name={`output-editor-${key}`}
                         editorProps={{ $blockScrolling: Infinity }}
                         value={outputs[key] || ''} // Utilizar la salida correspondiente a la petición actual
-                        style={{ height: '200px', fontSize: "20px", width: 'calc(100% - 20px)' }}
+                        style={{ height: '250px', fontSize: "20px", width: 'calc(100% - 20px)' }}
                         readOnly={true} />
                 </div>
             </div>
@@ -86,12 +86,12 @@ function Api() {
                     <div>
                         <h3>GET</h3>
                         <div className='row'>
-                            {renderPeticiones(lista_peticiones_get)}
+                            {cargarSolicitudes(solicitudes_get)}
                         </div>
 
                         <h3>POST</h3>
                         <div className='row'>
-                            {renderPeticiones(lista_peticiones_post)}
+                            {cargarSolicitudes(solicitudes_post)}
                         </div>
                     </div>
                 </div>

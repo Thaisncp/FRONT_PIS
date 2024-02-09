@@ -27,7 +27,6 @@ function RegistrosUsuario() {
       };
       // Ajusta la URL según tu implementación real
       await enviar('/cuenta/modEstado', data).then((info) => {
-        console.log('xddd', info.code)
         if (info.code === 200) {
           mensajes("estado actualizado!", "success", info.msg);
           const nuevosUsuarios = usuarios.map((usuario) =>

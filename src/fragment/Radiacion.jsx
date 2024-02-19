@@ -1,108 +1,210 @@
 import React, { useState, useEffect } from 'react';
 import Footer from './Footer';
-import '../components/css/InicioSesion.css';
-import UVBar from '../components/UVBar';
+import Navbar from './Navbar';
 import UVMap from '../components/UVMap';
 import UVInfo from '../components/UVInfo';
-import UVWarning from '../components/UVWarning';
 import UVLegend from '../components/UVLegend';
-import NewUVBar from '../components/NewUVBar';
-import 'leaflet/dist/leaflet.css';
+import UVBarra from '../components/UVBarra';
+import PromedioRadiacionUV from '../components/PromedioRadiacionUV';
+import ListaComentario from './ListaComentarios';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../components/css/UVMap.css'
-import Navbar from './Navbar';
+import '../components/css/InicioSesion.css';
+import '../components/css/Radiacion.css';
+import verdeImg from '../components/imagenes/1verde-02.png';
+import amarilloImg from '../components/imagenes/2amarillo-02.png';
+import naranjaImg from '../components/imagenes/3naranja-02.png';
+import rojoImg from '../components/imagenes/4rojo-02.png';
+import moradoImg from '../components/imagenes/5morado-02.png';
 
-//PRESENTA LA RADIACION Y EL MAPA
-const MainContainer1 = ({ uvData }) => (
-  <div className="main-container" style={{ backgroundColor: 'white' }}>
-    
-    <h1 className="text-center mb-4">Sistema UV</h1>
-    <div className="row">
-      <div className="col-md-6">
-        <UVBar uvIntensity={uvData.intensity} />
-        <UVWarning uvIntensity={uvData.intensity} />
-      </div>
-      <div className="col-md-6">
-        <UVMap uvData={uvData} />
-      </div>
-    </div>
-    <div className="mt-3">
-      <UVInfo uvIntensity={uvData.intensity} uvLocation={uvData.location} />
-    </div>
-  </div>
-);
-
-//RECOMEDACIONES SEGUN LA RADIACION
-const MainContainer2 = ({ uvData }) => (
-  <div className="main-container2 side-container" style={{ backgroundColor: 'white' }}>
-    {/* Contenido específico para MainContainer2 */}
-    <h2>Informacion UV</h2>
-    <div className="mt-5">
-    </div>
-    <div className="col-md-8">
-      <NewUVBar uvIntensity={uvData.intensity} />
-      <UVLegend />
-    </div>
-
-  </div>
-);
-
-//HISTORIAL
-const MainContainer3 = ({ uvData }) => {
-  const [uvHistory, setUVHistory] = useState([]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const currentDate = new Date().toLocaleString();
-
-      // Agrega el nuevo dato al historial usando el valor actual de intensity
-      setUVHistory((prevHistory) => [
-        ...prevHistory,
-        { intensity: uvData.intensity, date: currentDate },
-      ]);
-    }, 1000); // Intervalo de 1 segundo
-
-    // Limpia el intervalo al desmontar el componente
-    return () => clearInterval(interval);
-  }, [uvData.intensity]); // El efecto se ejecuta cada vez que cambia el valor de intensity en uvData
-
-  // Limita la cantidad de elementos mostrados en el historial
-  const limitedHistory = uvHistory.slice(-15); // Cambia 5 por la cantidad que desees mostrar
-
-  return (
-    <div className="main-container3 side-container" style={{ backgroundColor: 'white' }}>
-      <h2>Historial UV</h2>
-      <div className="history-container">
-        <ul>
-          {limitedHistory.map((historyItem, index) => (
-            <li key={index}>
-              Intensidad UV: {historyItem.intensity}, Fecha: {historyItem.date}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-};
 
 const Radiacion = () => {
-
-  const handleLogout = () => {
-  };
-  const [uvData, setUvData] = useState({
-    intensity: 3,
+  const [uvData, setUVData] = useState({
+    intensity: 0,
     location: 'Loja, Ecuador',
+    selectedDevice: null,
+    devices: [],
+    totalActiveDevices: 0,
+    averageIntensity: 0
   });
+
+  const [uvHistory, setUVHistory] = useState([]);
+  const [lastUpdate, setLastUpdate] = useState(null);
+
+  useEffect(() => {
+    const fetchDevices = async () => {
+      try {
+        const response = await axios.get('https://computacion.unl.edu.ec/uv/api/medicionDispositivos');
+        const dispositivos = response.data.ultimasMediciones.map(dispositivo => ({
+          nombre: dispositivo.nombre,
+          latitud: dispositivo.latitud,
+          longitud: dispositivo.longitud,
+          external_id: dispositivo.external_id,
+          uv: dispositivo.medicions.length > 0 ? dispositivo.medicions[0].uv : null,
+          activo: dispositivo.medicions.length > 0 ? dispositivo.medicions[0].uv !== 0 : false
+        }));
+        setUVData(prevState => ({
+          ...prevState,
+          devices: dispositivos
+        }));
+
+        // Calcular el promedio de la radiación UV
+        const totalIntensity = dispositivos.reduce((acc, dispositivo) => acc + dispositivo.uv, 0);
+        const averageIntensity = totalIntensity / dispositivos.length;
+        setUVData(prevState => ({
+          ...prevState,
+          averageIntensity: averageIntensity
+        }));
+      } catch (error) {
+        console.error('Error fetching devices data:', error);
+      }
+    };
+    fetchDevices();
+  }, []);
+
+  useEffect(() => {
+    if (uvData.selectedDevice) {
+      fetchDeviceData();
+    }
+  }, [uvData.selectedDevice, lastUpdate]);
+
+  const fetchDeviceData = async () => {
+    try {
+      if (uvData.selectedDevice) {
+        const response = await axios.get(`https://computacion.unl.edu.ec/uv/api/medicionDispositivos`);
+        const dispositivoActualizado = response.data.ultimasMediciones.find(dispositivo => dispositivo.external_id === uvData.selectedDevice.external_id);
+        if (dispositivoActualizado && dispositivoActualizado.medicions.length > 0) {
+          const nuevoDato = {
+            uv: dispositivoActualizado.medicions[0].uv,
+            fecha: dispositivoActualizado.medicions[0].fecha
+          };
+          if (dispositivoActualizado.medicions[0].fecha !== lastUpdate) {
+            setUVHistory(prevHistory => [...prevHistory, nuevoDato]);
+            setLastUpdate(dispositivoActualizado.medicions[0].fecha);
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching device data:', error);
+    }
+  };
+
+  const handleDeviceSelect = device => {
+    setUVData(prevState => ({
+      ...prevState,
+      selectedDevice: device,
+      intensity: device.uv
+    }));
+    setUVHistory([]);
+    setLastUpdate(null);
+  };
+
+  const clearHistory = () => {
+    setUVHistory([]);
+  };
+
+  const limitedHistory = uvHistory.slice(-15);
+
+  const seleccionarImagen = () => {
+    if (uvData.averageIntensity >= 0 && uvData.averageIntensity < 3) {
+      return <img src={verdeImg} alt="Imagen 1" style={{ width: 'auto', height: '600px' }} />;
+    } else if (uvData.averageIntensity >= 3 && uvData.averageIntensity < 6) {
+      return <img src={amarilloImg} alt="Imagen 2" style={{ width: 'auto', height: '600px' }} />;
+    } else if (uvData.averageIntensity >= 6 && uvData.averageIntensity < 8) {
+      return <img src={naranjaImg} alt="Imagen 3" style={{ width: 'auto', height: '600px' }} />;
+    } else if (uvData.averageIntensity >= 8 && uvData.averageIntensity < 11) {
+      return <img src={rojoImg} alt="Imagen 4" style={{ width: 'auto', height: '600px' }} />;
+    } else if (uvData.averageIntensity >= 11 && uvData.averageIntensity <= 15) {
+      return <img src={moradoImg} alt="Imagen 5" style={{ width: 'auto', height: '600px' }} />;
+    } else {
+      return null; // Puedes cambiar esto según tus necesidades
+    }
+  };
+
   return (
     <>
       <Navbar />
-      <MainContainer1 uvData={uvData} handleLogout={handleLogout} />
-      <MainContainer2 uvData={uvData} />
-      <MainContainer3 uvData={uvData} />
-      <Footer />
+      <div className="container-fluid p-4" style={{ backgroundColor: 'white', maxHeight: '90vh', overflowY: 'auto' }}>
+        <div className='row'>
+          <div className="order-md-first col-md-4 offset-md-2" style={{ textAlign: 'left', margin: '0' }}>
+            <div className="section-container">
+              <PromedioRadiacionUV averageIntensity={uvData.averageIntensity} />
+              <div className='promedio-radiacion-uv'>
+                {seleccionarImagen()}
+              </div>
+
+            </div>
+
+          </div>
+          <div className="col-md-4 d-flex align-items-center justify-content-center">
+            <div className='w-100'>
+            
+            <div className="section-container">
+            <h1 className="text-center" >ÍNDICE DE</h1> 
+            <h1 className="text-center mb-5" >RADIACIÓN</h1> 
+              <UVBarra uvIntensity={uvData.intensity} />
+            </div>
+            <div className="row mt-5">
+              <div className="col-md-12 mb-2">
+                <div className="section-container">
+                  <h3 className="h3 mb-4" >Seleccionar Dispositivo</h3>
+                  <select
+                    className="form-select"
+                    style={{ width: '75%', margin:'auto'}}
+                    value={uvData.selectedDevice ? uvData.selectedDevice.external_id : ''}
+                    onChange={e => {
+                      const selectedDevice = uvData.devices.find(device => device.external_id === e.target.value);
+                      handleDeviceSelect(selectedDevice);
+                    }}
+                  >
+                    {uvData.devices
+                      .filter(device => device.external_id)
+                      .map(device => (
+                        <option key={device.external_id} value={device.external_id}>
+                          {device.nombre}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+            </div>
+        
+          </div>
+          <div className='col-md-4'>
+            <div className="">
+              <h2 className="text-center mb-4">Niveles UV</h2>
+              <div className="col-md-8 offset-md-2">
+                <div className="section-container">
+                  <UVLegend uvIntensity={uvData.intensity}/>
+                </div>
+              </div>
+            </div>
+            <div className="mb-2">
+              <h2 className="text-center mb-4">Información</h2>
+              <div className="col-md-8 offset-md-2">
+                <div className="section-container">
+                  <UVMap selectedDevice={uvData.selectedDevice} />
+                </div>
+              </div>
+              <div className="col-md-6 offset-md-3">
+                <div className="section-container">
+                  <UVInfo uvIntensity={uvData.intensity} uvLocation={`${uvData.selectedDevice ? uvData.selectedDevice.nombre + ' - "Loja, ' : ''}Ecuador`} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="section-container" style={{marginLeft: '250px', marginRight: '250px'}}>
+          <ListaComentario/>
+        </div>
+
+        <Footer />
+      </div>
+
     </>
+
   );
 };
-
 
 export default Radiacion;

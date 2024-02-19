@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import AceEditor from 'react-ace';
+import 'ace-builds/webpack-resolver';
 import 'ace-builds/src-noconflict/theme-cobalt';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/ext-language_tools'
 import Navbar from './Navbar';
+import 'ace-builds/src-noconflict/ace';
+import Footer from './Footer';
 
 function Api() {
     const URL_BACKEND_API = "https://computacion.unl.edu.ec/uv/api/";
@@ -52,15 +55,15 @@ function Api() {
         return Object.keys(lista).map((key) => (
             <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '20px' }} className="col-xs-12 col-sm-12 col-md-6 col-lg-6" key={key}>
                 <div style={{ marginBottom: '10px', flex: 1 }}>
-                <div className="d-flex justify-content-between">
-                <h3 style={{ color: 'black', textAlign: 'left' }}>{lista[key].funcion}</h3>
-            </div>
-            <div className="alert alert-info" role="alert">
-            <h5 style={{ textAlign: 'left' }}>{lista[key].direccion}</h5>
-            </div>
+                    <div className="d-flex justify-content-between">
+                        <h3 style={{ color: 'black', textAlign: 'left' }}>{lista[key].funcion}</h3>
+                    </div>
+                    <div className="alert alert-info" role="alert">
+                        <h5 style={{ textAlign: 'left' }}>{lista[key].direccion}</h5>
+                    </div>
                 </div>
                 <div> {/* Agregamos margen izquierdo y derecho de 10px */}
-                <AceEditor
+                    <AceEditor
                         mode="json"
                         theme="cobalt"
                         name={`output-editor-${key}`}
@@ -77,24 +80,23 @@ function Api() {
         <>
             <Navbar />
             <main className="p-5">
+                <div style={{ textAlign: 'center', color: '#100955' }}>
+                    <h1 style={{ color: "#100955", fontSize: '50px' }}>LISTA DE PETICIONES DISPONIBLES</h1>
+                </div>
                 <div className="card p-4" style={{ overflow: 'auto', maxHeight: '780px' }}>
-                    <div className="p-4 row">
-                        <div className="col-sm-10" style={{alignContent: 'center'}}>
-                            <h2>Listado de peticiones disponibles</h2>
-                        </div>
-                    </div>
                     <div>
-                        <h3>GET</h3>
+                        <h3 className= '' style={{ color: "#100955", fontWeight: 'bold' }} >GET</h3>
                         <div className='row'>
                             {cargarSolicitudes(solicitudes_get)}
                         </div>
 
-                        <h3>POST</h3>
+                        <h3 className= '' style={{ color: "#100955", fontWeight: 'bold' }} >POST</h3>
                         <div className='row'>
                             {cargarSolicitudes(solicitudes_post)}
                         </div>
                     </div>
                 </div>
+                
             </main>
         </>
     );

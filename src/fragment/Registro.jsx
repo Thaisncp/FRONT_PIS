@@ -48,10 +48,10 @@ const Registro = () => {
   return (<div>
     <Navbar/>
     <div className="mb-4 registro-container container mt-5">
-      <h1 className="text-center mb-4">Registro</h1>
+      <h1 className="text-center mb-4"style={{ color: "#100955" }}>Registro</h1>
       <form className='row g-3' onSubmit={sendData}>
         <div className="col-md-6">
-          <label htmlFor="nombres" className="form-label">
+          <label htmlFor="nombres" className="form-label"style={{ color: "#100955" }}>
             Nombres:
           </label>
           <input
@@ -63,7 +63,7 @@ const Registro = () => {
           />
         </div>
         <div className="col-md-6">
-          <label htmlFor="apellidos" className="form-label">
+          <label htmlFor="apellidos" className="form-label"style={{ color: "#100955" }}>
             Apellidos:
           </label>
           <input
@@ -75,7 +75,7 @@ const Registro = () => {
           />
         </div>
         <div className="col-md-6">
-          <label htmlFor="fecha_nacimiento" className="form-label">
+          <label htmlFor="fecha_nacimiento" className="form-label"style={{ color: "#100955" }}>
             Fecha de Nacimiento:
           </label>
           <input
@@ -87,7 +87,7 @@ const Registro = () => {
           />
         </div>
         <div className="col-md-6">
-          <label htmlFor="direccion" className="form-label">
+          <label htmlFor="direccion" className="form-label"style={{ color: "#100955" }}>
             Dirección:
           </label>
           <input
@@ -99,7 +99,7 @@ const Registro = () => {
           />
         </div>
         <div className="col-md-6">
-          <label htmlFor="ocupacion" className="form-label">
+          <label htmlFor="ocupacion" className="form-label"style={{ color: "#100955" }}>
             Ocupación:
           </label>
           <input
@@ -111,7 +111,7 @@ const Registro = () => {
           />
         </div>
         <div className="col-md-6">
-          <label htmlFor="organizacion" className="form-label">
+          <label htmlFor="organizacion" className="form-label"style={{ color: "#100955" }}>
             Institución:
           </label>
           <input
@@ -123,7 +123,7 @@ const Registro = () => {
           />
         </div>
         <div className="col-md-6">
-          <label htmlFor="correo" className="form-label">
+          <label htmlFor="correo" className="form-label"style={{ color: "#100955" }}>
             Correo:
           </label>
           <input
@@ -135,7 +135,7 @@ const Registro = () => {
           />
         </div>
         <div className="col-md-6">
-          <label htmlFor="clave" className="form-label">
+          <label htmlFor="clave" className="form-label"style={{ color: "#100955" }}>
             Clave:
           </label>
           <input
@@ -148,7 +148,7 @@ const Registro = () => {
         </div>
         
         <div className="d-flex justify-content-center">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary"style={{ backgroundColor: "#100955" }}>
             REGISTRARSE
           </button>
         </div>

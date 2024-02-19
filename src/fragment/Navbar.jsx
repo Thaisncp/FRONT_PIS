@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { Modal, Button } from 'react-bootstrap';
 import Comentario from './Comentario';
 import '../components/css/Comentario.css';
+import '../components/css/Navbar.css';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -28,12 +29,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container-fluid">
-        <a className="navbar-brand" href="/">SEMAFORO UV</a>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
+    <nav className="navbar navbar-expand-lg navbar-custom bg-dark larger-text">
+      <div className="container-fluid navbar-custom">
+      <div className="brand-container larger-text">
+          <a className="navbar-brand larger-text" href="/">
+            P<img src="https://cdn-icons-png.flaticon.com/128/4215/4215517.png" alt="icono" className="icon-in-o" />LARIS
+          </a>
+        </div>
         <div className="collapse navbar-collapse" id="navbarText">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             {rol === 'ADMINISTRADOR' && (
@@ -61,7 +63,7 @@ const Navbar = () => {
                   <a className="nav-link active" aria-current="page" href="/api">Api</a>
                 </li>
                 <li className="nav-item">
-                <a className="nav-link active" aria-current="page" onClick={handleAbrirComentariosModal}>Comentario</a>
+                <a className="nav-link active" aria-current="page" onClick={handleAbrirComentariosModal}>Añadir Comentario</a>
                 </li>
               </>
             )}

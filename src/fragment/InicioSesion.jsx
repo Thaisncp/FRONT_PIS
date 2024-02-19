@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { InicioSesion as iniciarSesionAPI } from '../hooks/Conexion'; // Ajusta las importaciones según tu estructura
 import mensajes from '../utilidades/Mensajes'
-import { saveToken, save} from '../utilidades/SessionUtil';
+import { saveToken, save } from '../utilidades/SessionUtil';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../components/css/InicioSesion.css';
 import Navbar from './Navbar';
@@ -27,7 +27,7 @@ const InicioSesion = () => {
         save('rol', info.info.rol);
         save('external', info.info.external);
         mensajes("Has ingresado al sistema!", "success", info.info.msg);
-        navegation('/api');
+        navegation('/');
       } else {
         setError(info.info.msg); // Cambié setError(info.msg) para mostrar el mensaje de error
         mensajes("Error en inicio de sesion", "error", info.info.msg);
@@ -37,12 +37,14 @@ const InicioSesion = () => {
 
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className="login-container container mt-5">
-        <h1 className="text-center mb-4">Inicia Sesión</h1>
+        <h1 className="text-center mb-4" style={{ color: "#100955" }}>
+          Inicia Sesión
+        </h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-3">
-            <label htmlFor="usuario" className="form-label">
+            <label htmlFor="usuario" className="form-label"style={{ color: "#100955" }}>
               Usuario:
             </label>
             <input
@@ -52,10 +54,12 @@ const InicioSesion = () => {
               placeholder="Ingrese usuario"
               {...register('usuario', { required: true })}
             />
-            {errors.usuario && errors.usuario.type === 'required' && <div className='alert alert-danger'>Ingrese el usuario</div>}
+            {errors.usuario && errors.usuario.type === 'required' && (
+              <div className='alert alert-danger'>Ingrese el usuario</div>
+            )}
           </div>
           <div className="mb-3">
-            <label htmlFor="clave" className="form-label">
+            <label htmlFor="clave" className="form-label"style={{ color: "#100955" }}>
               Clave:
             </label>
             <input
@@ -65,10 +69,12 @@ const InicioSesion = () => {
               placeholder="Ingrese clave"
               {...register('clave', { required: true })}
             />
-            {errors.clave && errors.clave.type === 'required' && <div className='alert alert-danger'>Ingrese una clave</div>}
+            {errors.clave && errors.clave.type === 'required' && (
+              <div className='alert alert-danger'>Ingrese una clave</div>
+            )}
           </div>
           <div className="mb-3 d-flex justify-content-center">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary" style={{ backgroundColor: "#100955" }}>
               Iniciar Sesión
             </button>
           </div>
@@ -78,6 +84,7 @@ const InicioSesion = () => {
       <Footer />
     </>
   );
+  
 };
 
 export default InicioSesion;

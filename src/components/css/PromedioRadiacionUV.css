@@ -1,0 +1,21 @@
+/* PromedioRadiacionUV.css */
+.promedio-radiacion-uv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px; /* Ajusta el margen superior según sea necesario */
+}
+
+.promedio-radiacion-uv h2 {
+  color: #100955 !important;
+  text-align: center;
+  font-weight: bold;
+   /* Cambia el color del título a negro */
+}
+
+.promedio-radiacion-uv p {
+  font-size: 22px;
+  color: black; /* Cambia el color del texto a negro */
+}
+

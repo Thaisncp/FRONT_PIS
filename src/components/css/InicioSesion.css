@@ -1,10 +1,27 @@
-body {
+/**body {
   margin: auto;
   padding: 0;
   background-image: url('../imagenes/logounl.jpg');
   background-size: 10%;
   background-position: center;
   background-repeat: repeat;
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+}*/
+/**body {
+  margin: auto;
+  padding: 0;
+  background: linear-gradient(to bottom,#000057, #2310c7);
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+}*/
+
+body {
+  margin: auto;
+  padding: 0;
+  background: white;
   color: #ffffff;
   font-family: 'Roboto', sans-serif;
   overflow: hidden;
@@ -188,6 +205,13 @@ display: flex;
   object-fit: cover;
   animation: movement 60s linear infinite;
   transform: translateX(-100%);
+}
+
+.table-header {
+  color: #100955 !important;
+  text-align: center;
+  font-weight: bold;
+  /* Puedes agregar otros estilos según sea necesario */
 }
 
 @keyframes movement {

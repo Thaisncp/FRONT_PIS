@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../components/css/UVLegend.css';
 
-const UVLegend = () => {
+const UVLegend = ({ uvIntensity }) => {
   const uvLevels = [
     {
       level: 'Bajo - Menor a 2',
@@ -32,28 +32,33 @@ const UVLegend = () => {
 
   const [currentLevel, setCurrentLevel] = useState(0);
 
-  useEffect(() => {
+  /**useEffect(() => {
     const timer = setTimeout(() => {
       setCurrentLevel((prevLevel) => (prevLevel + 1) % uvLevels.length);
-    }, 5000);
+    }, 3000);*/
+    useEffect(() => {
+      // Lógica para cambiar el nivel automáticamente según el prop uvIntensity
+      if (uvIntensity < 2) setCurrentLevel(0);
+      else if (uvIntensity >= 3 && uvIntensity <= 5) setCurrentLevel(1);
+      else if (uvIntensity >= 6 && uvIntensity <= 7) setCurrentLevel(2);
+      else if (uvIntensity >= 8 && uvIntensity <= 10) setCurrentLevel(3);
+      else setCurrentLevel(4);
+    }, [uvIntensity]);
+  
+    const uvLevelClass = uvLevels[currentLevel].color;
 
-    return () => clearTimeout(timer);
-  }, [currentLevel, uvLevels.length]);
-
-  const uvLevelClass = uvLevels[currentLevel].color;
-
-  return (
-    <div className={`uv-legend ${uvLevelClass}`}>
-      <h3><center>A tener en cuenta</center></h3>
-      <div className="legend-item">
-        <div className={`color-box ${uvLevelClass}`}></div>
-        <div className="legend-text">
-          {uvLevels[currentLevel].level}
-          <p>{uvLevels[currentLevel].recommendation}</p>
+    return (
+      <div className={`uv-legend ${uvLevelClass}`}>
+        <h3><center>A tener en cuenta</center></h3>
+        <div className="legend-item">
+          <div className={` ${uvLevelClass}`}></div>
+          <div className="legend-text">
+            {uvLevels[currentLevel].level}
+            <p>{uvLevels[currentLevel].recommendation}</p>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default UVLegend;

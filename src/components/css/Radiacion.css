@@ -19,3 +19,14 @@
   font-family: 'Roboto Condensed', sans-serif !important; /* Tipo de letra Roboto Condensed */
 }
 
+#grafica-container .apexcharts-tooltip * {
+  color: #000000 !important; /* Cambia el color del texto a negro */
+}
+
+#grafica-container .apexcharts-menu-item, 
+#grafica-container .apexcharts-menu-link, 
+#grafica-container .apexcharts-menu-icons svg,
+#grafica-container .apexcharts-canvas-menu svg {
+  fill: #000000 !important; /* Cambia el color del texto a negro */
+  color: #000000 !important; /* Cambia el color del texto a negro */
+}

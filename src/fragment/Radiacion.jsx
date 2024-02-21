@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import UVMap from '../components/UVMap';
+import UVGrafica from '../components/UVGrafica';
 import UVInfo from '../components/UVInfo';
 import UVLegend from '../components/UVLegend';
 import UVBarra from '../components/UVBarra';
@@ -194,6 +195,9 @@ const Radiacion = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div id="grafica-container" style={{marginLeft: '60px'}}>
+          <UVGrafica/>
         </div>
         <div className="section-container" style={{marginLeft: '250px', marginRight: '250px'}}>
           <ListaComentario/>

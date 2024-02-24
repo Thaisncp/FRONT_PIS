@@ -54,7 +54,7 @@ const Radiacion = () => {
         const averageIntensity = totalIntensity / dispositivos.length;
         setUVData(prevState => ({
           ...prevState,
-          averageIntensity: averageIntensity
+          averageIntensity: 10//averageIntensity
         }));
       } catch (error) {
         console.error('Error fetching devices data:', error);

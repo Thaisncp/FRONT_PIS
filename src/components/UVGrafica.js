@@ -9,6 +9,7 @@ const GraficaMedicionesUV = () => {
 
   useEffect(() => {
     const fechaActual = new Date();
+    console.log(fechaActual);
     const fechaInicio = subDays(fechaActual, 3);
     const fetchData = async () => {
       try {
